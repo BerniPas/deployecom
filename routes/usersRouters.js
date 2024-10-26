@@ -1,14 +1,14 @@
 
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const {
+import {
     userIndex,
     userRegister,
     userLoginView,
     userCreate,
     userLogin,
     userAdmin
-} = require('../controllers/usersControllers');
+} from '../controllers/usersControllers.js';
 
 
 // Ruta para el Home de la pizzería
@@ -28,5 +28,4 @@ router.post('/login', userLogin);
 // Ruta para crear un nuevo usuario
 router.post('/create', userCreate);
 
-
-module.exports = router; 
+export default router;

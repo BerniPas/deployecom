@@ -1,6 +1,6 @@
 
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 dotenv.config();
 
 const MONGO_LOCAL = process.env.MONGO_LOCAL;
@@ -9,7 +9,7 @@ const MONGO_ATLAS = process.env.MONGO_ATLAS;
 // conexión directa a mongo
 // mongoose.connect(MONGO_LOCAL);
 
-const conexión = mongoose.connect(MONGO_LOCAL, { 
+const conexion = mongoose.connect(MONGO_ATLAS, { 
 /*     version: '1', 
     strict: true, 
     deprecationErrors: true  */
@@ -27,5 +27,5 @@ const conexión = mongoose.connect(MONGO_LOCAL, {
 }) */;
 
 
-module.exports = conexión;
+export default conexion;
 

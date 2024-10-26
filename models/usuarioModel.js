@@ -1,6 +1,6 @@
-const mongoose = require ('mongoose')
+import mongoose from 'mongoose';
 
-const { Schema } = require('mongoose');
+import { Schema } from 'mongoose';
 
 // Definición del esquema para el modelo de cliente
 const clienteSchema = new Schema({
@@ -28,4 +28,4 @@ const clienteSchema = new Schema({
 });
 
 
-module.exports = mongoose.model('clientes', clienteSchema);  
+export default mongoose.model('clientes', clienteSchema);  

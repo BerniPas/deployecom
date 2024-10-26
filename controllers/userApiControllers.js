@@ -1,11 +1,11 @@
-const { Response } = require("express");
+import  { request, response } from "express";
 
 // importamos el modelo del user de mongoose
-const Clientes = require('../models/usuarioModel');
+import Clientes from '../models/usuarioModel.js';
 
 
 // Registramos usuarios nuevos
-const apiRegisterUsers = async (req, res = Response) => {
+const apiRegisterUsers = async (req, res = response) => {
 
     let { nombre, email, password } = req.body;
     //console.log(nombre, email, password);
@@ -72,7 +72,7 @@ const apiRegisterUsers = async (req, res = Response) => {
 }
 
 // Login de usuarios
-const apiLoginUsers = async (req, res = Response) => {
+const apiLoginUsers = async (req, res = response) => {
 
     // ############### Recibimos los datos del formulario ###############
     
@@ -129,7 +129,7 @@ const apiLoginUsers = async (req, res = Response) => {
     
 }
 
-module.exports = {
+export	{
     apiRegisterUsers,
     apiLoginUsers
 }

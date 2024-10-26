@@ -1,8 +1,9 @@
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-require('dotenv').config();
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+dotenv.config();
 
-const Clientes = require('../models/usuarioModel');
+import Clientes from '../models/usuarioModel.js';
 
 const userIndex = (req, res) => {
     res.render('index');
@@ -181,7 +182,7 @@ const userLogin = async (req, res) => {
 } 
 
 
-    module.exports = {
+    export {
         userIndex,
         userRegister,
         userLoginView,

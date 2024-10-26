@@ -8,7 +8,7 @@
     "controllers/**/*",
     "conexion/**/*",
     "models/**/*",
-    "app.js",
-    "server.js"
+    "app.mjs",
+    "server.mjs"
     ]
 }

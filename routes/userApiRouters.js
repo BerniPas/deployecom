@@ -1,11 +1,10 @@
-const { Router } = require('express');
-const { 
+import express from 'express';
+const router = express.Router();
+
+import { 
     apiRegisterUsers,
     apiLoginUsers 
-} = require('../controllers/userApiControllers');
-
-const router = Router();
-
+} from '../controllers/userApiControllers.js';
 
 // responde a la ruta /api/user
 
@@ -14,4 +13,4 @@ router.post('/register', apiRegisterUsers);
 router.post('/login', apiLoginUsers);
 
 
-module.exports = router;
+export default router;
