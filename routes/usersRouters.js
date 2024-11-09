@@ -1,6 +1,9 @@
 
 import express from 'express';
+import { check } from 'express-validator';
+
 const router = express.Router();
+
 import {
     userIndex,
     userRegister,
@@ -26,6 +29,14 @@ router.get('/admin', userAdmin);
 router.post('/login', userLogin);
 
 // Ruta para crear un nuevo usuario
-router.post('/create', userCreate);
+router.post('/create', 
+    [
+        check('nombre').isLength({ min: 3, max: 25 }).withMessage('El nombre debe tener entre 3 y 25 caracteres'),
+        check('email').isEmail().withMessage('El email no es válido'),
+        check('password').isLength({ min: 6 }).withMessage('La contraseña debe tener al menos 6 caracteres')
+    ]
+    ,
+    userCreate
+);
 
 export default router;
