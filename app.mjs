@@ -5,11 +5,13 @@ import cors from 'cors';
 import hbs from 'hbs';
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
+import compression from 'compression';
 dotenv.config();
 
 // importamos las rutas
 import userRouter from './routes/usersRouters.js';
 import apiRouter from './routes/userApiRouters.js';
+import productRouters from './routes/productRouters.js';
 
 const app = express();
 
@@ -21,12 +23,25 @@ const app = express();
 // const __dirname = path.dirname(__filename);
 // app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(cors());
+// opciones de cors
+const whitelist = ['http://mercadopago.com', 'http://modo.com'];
+const corsOptions = {
+    origin: function (origin, callback) {
+        if (whitelist.indexOf(origin) !== -1) {
+            callback(null, true)
+        } else {
+            callback(new Error('Not allowed by CORS'))
+        }
+    }
+}
+
+//app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(cookieParser())
 app.use(morgan('dev'));
+app.use(compression());
 
 app.set('view engine', 'hbs');
 app.set('views', 'views');
@@ -34,10 +49,11 @@ hbs.registerPartials(path.join('views/partials'));
 // hbs.registerPartials(path.join(__dirname, 'views/partials'));
 
 // rutas para la api
-app.use('/api/user', apiRouter);
+app.use('/api/user', cors(corsOptions), apiRouter);
 
-// rutas para el front
+// rutas para el fronts
 app.use('/', userRouter);
+app.use('/product', productRouters);
 
 app.get('/*', (req, res) => {
     res.render('error');
