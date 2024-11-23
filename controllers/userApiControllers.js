@@ -7,8 +7,11 @@ import Clientes from '../models/usuarioModel.js';
 // Registramos usuarios nuevos
 const apiRegisterUsers = async (req, res = response) => {
 
-    let { nombre, email, password } = req.body;
+    let { nombre, email, password, edad } = req.body;
     //console.log(nombre, email, password);
+
+    //ejemplo de conversion de variables
+    edad = Number(edad);
 
     nombre = nombre.toLowerCase()
 
@@ -16,7 +19,8 @@ const apiRegisterUsers = async (req, res = response) => {
     const usuarioData = {
         nombre,
         email,
-        password
+        password, 
+        edad
     }
 
     console.log(usuarioData);
