@@ -8,6 +8,9 @@ import morgan from 'morgan';
 import compression from 'compression';
 dotenv.config();
 
+import session from 'express-session';
+import MongoStore from 'connect-mongo';
+
 // importamos las rutas
 import userRouter from './routes/usersRouters.js';
 import apiRouter from './routes/userApiRouters.js';
@@ -23,7 +26,7 @@ const app = express();
 // const __dirname = path.dirname(__filename);
 // app.use(express.static(path.join(__dirname, 'public')));
 
-// opciones de cors
+// opciones de cors: cambiar para usar la ruta de userApiControllers
 const whitelist = ['http://mercadopago.com', 'http://modo.com'];
 const corsOptions = {
     origin: function (origin, callback) {
@@ -34,6 +37,19 @@ const corsOptions = {
         }
     }
 }
+
+// guardar las sesiones en la base de datos
+app.use(session({
+    store: MongoStore.create({
+        mongoUrl: process.env.MONGO_ATLAS
+    }),
+    secret: process.env.SECRET,
+    resave: true,
+    saveUninitialized: false,
+    cookie: {
+        maxAge: 60000
+    }
+}));
 
 //app.use(cors());
 app.use(express.json());

@@ -209,6 +209,18 @@ const userLogin = async (req, res) => {
                 });
             }
 
+            //agregar la sesión del usuario
+            req.session.usuario = {
+                id: usuario._id,
+                nombre: usuario.nombre,
+                email: usuario.email
+            };
+
+            console.log(req.session.usuario);
+
+            //guardamos la sesión en la base de datos
+            await req.session.save();
+
             if(isMatch && usuario.role == 'user'){
                 return res.render('productos', {
                     mensaje: `Bienvenido a la sección de productos ${usuario.nombre}`

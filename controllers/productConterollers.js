@@ -90,13 +90,81 @@ const deleteProduct = async (req, res) => {
 
 };
 
+
+const updateProduct = async (req, res) => {
+
+    const id = req.params._id;
+
+    try {
+
+        const productoParaActualizar = await productModel.findById(id);
+
+        console.log(productoParaActualizar);
+
+        //guardamos en otra coleccion el producto que actualizamos
+        //await productModel.save(productoParaActualizar);
+
+
+        return res.render('formUpdate', {
+            products: productoParaActualizar
+        });
+        
+    } catch (error) {
+        return res.render('error', {
+            mensaje: "El producto no se pudo encontrar, intente de nuevo"
+        });
+        
+    }
+};
+
+
+const updateProductFinal = async (req, res) => {
+    
+    const id = req.params._id;
+
+        console.log(id);
+
+    try {
+
+        const data = {
+            nombreProducto: req.body.nombreProducto,
+            precioProducto: req.body.precioProducto,
+            descripcionProducto: req.body.descripcionProducto,
+            stockProducto: req.body.stockProducto,
+            imagenProducto: req.body.imagenProducto
+        } 
+
+        const productoActualizado = await productModel.findByIdAndUpdate({_id: id}, data, {new: true});
+
+        console.log(productoActualizado);
+
+        //guardamos en otra coleccion el producto que actualizamos
+        //await productModel.save(productoParaActualizar);
+
+        // buscamos los productos actualizados
+        const products = await productModel.find();
+
+        return res.render('productos', {
+            products
+        });
+        
+    } catch (error) {
+        return res.render('error', {
+            mensaje: "El producto no se pudo actualizar, intente de nuevo"
+        });
+        
+    }
+}
+
+
+
 const getProductById = async (req, res) => {};
-const updateProduct = async (req, res) => {};
 
 export { 
     createProduct, 
     getProducts, 
     getProductById, 
     updateProduct, 
-    deleteProduct 
+    deleteProduct,
+    updateProductFinal
 };

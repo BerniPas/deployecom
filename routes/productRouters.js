@@ -8,6 +8,8 @@ import {
     getProducts,
     createProduct,
     deleteProduct,
+    updateProduct,
+    updateProductFinal
 } from '../controllers/productConterollers.js';
 
 // esta ruta responde a /product   /product/delete/
@@ -18,6 +20,11 @@ router.get('/', getProducts);
 router.get('/registro', (req, res) => {
     res.render('formProductos');
 });
+
+//Get para actualizar producto, creando un barra de búsqueda
+/* router.get('/update', (req, res) => {
+    res.render('formUpdate');
+}); */
 
 router.get('/card/:id', getProducts);
 
@@ -39,6 +46,10 @@ createProduct
 );
 
 router.post('/delete/:_id', deleteProduct);
+
+router.post('/update/:_id', updateProduct);
+router.post('/updatedata/:_id', updateProductFinal);
+
 
 
 
